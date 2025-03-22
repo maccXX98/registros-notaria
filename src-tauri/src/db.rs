@@ -55,9 +55,7 @@ fn db_file_exists() -> bool {
 fn get_db_path() -> String {
     let project_dir =
         std::env::current_dir().unwrap_or_else(|_| panic!("Failed to get current directory"));
-    let path = project_dir
-        .join("database")
-        .join("registros_notaria.sqlite");
+    let path = project_dir.join("database").join("registros_notaria.db");
     path.to_str().unwrap().to_string()
 }
 
