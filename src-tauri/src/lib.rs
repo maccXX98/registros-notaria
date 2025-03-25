@@ -10,7 +10,6 @@ pub fn run() {
         .setup(|_app| {
             // Initialize the database.
             db::init();
-
             Ok(())
         })
         .run(tauri::generate_context!())

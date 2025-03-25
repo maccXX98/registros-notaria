@@ -13,13 +13,6 @@ pub fn init() {
     }
 
     run_migrations();
-
-    // Verificar que la base de datos se ha creado correctamente
-    if verify_db_creation() {
-        println!("Base de datos creada y conectada correctamente");
-    } else {
-        panic!("Error al verificar la creación de la base de datos");
-    }
 }
 
 pub fn establish_db_connection() -> SqliteConnection {
@@ -57,20 +50,4 @@ fn get_db_path() -> String {
         std::env::current_dir().unwrap_or_else(|_| panic!("Failed to get current directory"));
     let path = project_dir.join("database").join("registros_notaria.db");
     path.to_str().unwrap().to_string()
-}
-
-/// Verifica que la base de datos existe y se puede conectar a ella
-pub fn verify_db_creation() -> bool {
-    if !db_file_exists() {
-        return false;
-    }
-
-    // Intentar establecer una conexión
-    match SqliteConnection::establish(&format!("sqlite://{}", get_db_path())) {
-        Ok(_) => true,
-        Err(e) => {
-            eprintln!("Error al conectar a la base de datos: {}", e);
-            false
-        }
-    }
 }
